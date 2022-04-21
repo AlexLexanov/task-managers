@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Return user model"""
+type UserModel {
+  email: String!
+  lastname: String!
+  firstname: String!
+}
+
+"""Return token and refrash token"""
+type UserTokensModel {
+  email: String!
+  lastname: String!
+  firstname: String!
+  access_token: String!
+  refresh_token: String!
+}
+
+type Query {
+  getAuthUser: UserModel!
+  refresh(refresh_token: String!): UserTokensModel!
+}
+
+type Mutation {
+  logout: String!
+  SingIn(email: String!, password: String!): UserTokensModel!
+  SingUp(email: String!, password: String!, lastname: String!, firstname: String!): UserModel!
+}
