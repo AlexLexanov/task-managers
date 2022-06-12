@@ -9,7 +9,7 @@ type UserModel {
   firstname: String!
 }
 
-"""Return token and refrash token"""
+"""Return user, token and refresh token"""
 type UserTokensModel {
   email: String!
   lastname: String!
@@ -26,5 +26,5 @@ type Query {
 type Mutation {
   logout: String!
   SingIn(email: String!, password: String!): UserTokensModel!
-  SingUp(email: String!, password: String!, lastname: String!, firstname: String!): UserModel!
+  SingUp(email: String!, password: String!, lastname: String!, firstname: String!): UserTokensModel!
 }
