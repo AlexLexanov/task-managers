@@ -15,7 +15,7 @@ export const ProtectedRoute: FunctionComponent<ProtectedRouteProps> = ({
     return Boolean(token);
   };
 
-  if (!isAuthenticated()) return <Navigate to={ toRedirect } />
+  // if (!isAuthenticated()) return <Navigate to={ toRedirect } />
 
   return children ? children : <Outlet />;
 };

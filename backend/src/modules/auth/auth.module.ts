@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtConfigService } from '../../config/jwt.config';
-import { TypeOrmModule } from '@nestjs/typeorm/dist';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { JwtConfigService } from '../../config';
+
+import { AuthService } from './auth.service';
 import { SessionEntity } from './session.entity';
 import { AuthResolver } from './auth.resolver';
 import { UsersModule } from '../users/users.module';

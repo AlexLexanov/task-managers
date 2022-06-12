@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlOptionsFactory } from '@nestjs/graphql';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
@@ -8,11 +9,8 @@ export class GqlConfigService implements GqlOptionsFactory {
     return {
       autoSchemaFile: 'schema.gql',
       debug: false,
-      playground: true,
-      cors: {
-        credentials: true,
-        origin: true,
-      },
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     };
   }
 }

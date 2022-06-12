@@ -12,8 +12,17 @@ export class UserModel {
   public firstname: string;
 }
 
-@ObjectType({ description: 'Return token and refresh token' })
+@ObjectType({ description: 'Return user, token and refresh token' })
 export class UserTokensModel extends UserModel {
+  @Field()
+  public access_token: string;
+
+  @Field()
+  public refresh_token: string;
+}
+
+@ObjectType({ description: 'Return token and refresh token' })
+export class RefreshToken {
   @Field()
   public access_token: string;
 
