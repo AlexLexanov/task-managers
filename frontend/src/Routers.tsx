@@ -7,9 +7,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ProjectPage } from "./pages/ProjectPage";
 
 const HomePageLazy = lazy(() => import("./pages/HomePage"));
-const SingInPageLazy = lazy(() => import("./pages/Authorization/SingInPage"));
-const SingUpPageLazy = lazy(() => import("./pages/Authorization/SingUpPage"));
-
+const SignInPageLazy = lazy(() => import("./pages/Authorization/SignInPage"));
+const SignUpPageLazy = lazy(() => import("./pages/Authorization/SignUpPage"));
 
 
 export const Routers = () => {  
@@ -21,8 +20,8 @@ export const Routers = () => {
         <Route path="/project" element={ <ProjectPage /> } />
       </Route>
       <Route path="/authorization" element={<AuthorizationLayout />}>
-        <Route index element={<SingInPageLazy />} />
-        <Route path="sing_up" element={<SingUpPageLazy />} />
+        <Route index element={<SignInPageLazy />} />
+        <Route path="sign_up" element={<SignUpPageLazy />} />
       </Route>
     </Routes>
   );

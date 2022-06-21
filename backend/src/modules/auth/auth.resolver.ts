@@ -28,12 +28,12 @@ export class AuthResolver {
   }
 
   @Mutation(() => UserTokensModel)
-  public async SingIn(@Args() args: SingInArgs, @Context() context) {
+  public async SignIn(@Args() args: SingInArgs, @Context() context) {
     return await this.service.login(args, context.req.res);
   }
 
   @Mutation(() => UserModel)
-  public async SingUp(@Args() args: SingUpArgs) {
+  public async SignUp(@Args() args: SingUpArgs) {
     return await this.service.registration(args);
   }
 }

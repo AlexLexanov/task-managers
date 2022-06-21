@@ -2,7 +2,7 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 @ArgsType()
-export class SingInArgs {
+export class SignInArgs {
   @Field(() => String)
   @IsNotEmpty()
   @IsEmail()
@@ -15,7 +15,7 @@ export class SingInArgs {
 }
 
 @ArgsType()
-export class SingUpArgs extends SingInArgs {
+export class SignUpArgs extends SignInArgs {
   @Field(() => String)
   @IsNotEmpty()
   @IsString()
