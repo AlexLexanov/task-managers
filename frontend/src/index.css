@@ -38,5 +38,8 @@
     }
     100% { 
       transform: translate3d(85px,0,0);
+@layer components {
+    .hide-scroll::-webkit-scrollbar {
+        width: 0;
     }
   }

@@ -51,7 +51,11 @@ export const AuthorizationLayout = () => {
               et a id nisi.
             </p>
           </div>
-          <Outlet />
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="card-body">
+              <Outlet />
+            </div>
+          </div>
         </div>
       </div>
     </Suspense>

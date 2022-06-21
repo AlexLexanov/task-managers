@@ -1,11 +1,11 @@
-import { JwtModuleOptions, JwtOptionsFactory } from "@nestjs/jwt";
-import { Injectable } from "@nestjs/common";
+import { JwtModuleOptions, JwtOptionsFactory } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class JwtConfigService implements JwtOptionsFactory {
   createJwtOptions(): JwtModuleOptions {
     return {
-      signOptions: { algorithm: "HS256" }
+      signOptions: { algorithm: 'HS256' },
     };
   }
 }

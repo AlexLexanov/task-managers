@@ -1,0 +1,15 @@
+.head-navbar {
+    @apply navbar border-b text-blue-500 font-bold divide-slate-500 bg-base-100;
+}
+
+.head-navbar div:nth-child(1) {
+    @apply navbar-start;
+}
+
+.head-navbar div:nth-child(2) {
+    @apply navbar-center hidden lg:flex;
+}
+
+.head-navbar div:nth-child(3) {
+    @apply navbar-end;
+}

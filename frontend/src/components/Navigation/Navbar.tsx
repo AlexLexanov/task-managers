@@ -1,10 +1,12 @@
-import { Link, LinkProps, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { Search } from "./Search";
 import { UserMenu } from "./UserMenu";
+import './Navbar.css'
 
 export const Navbar = () => {
   return (
-    <div className="navbar border-b text-blue-500 font-bold divide-slate-500 bg-base-100">
-      <div className="navbar-start">
+    <div className="head-navbar">
+      <div>
         <Link to="/" className="btn btn-ghost normal-case text-3xl">
           Jira
         </Link>
@@ -60,21 +62,16 @@ export const Navbar = () => {
           </ul>
         </div>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div>
         <ul className="menu menu-horizontal p-0">
-          <li>
+          <li tabIndex={0}>
             <NavLink
               className={({ isActive }) =>
                 isActive ? "bg-blue-500 text-white" : ""
               }
-              to="/project"
+              to="/projects"
             >
-              Project
-            </NavLink>
-          </li>
-          <li tabIndex={0}>
-            <a>
-              Parent
+              Projects
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -84,13 +81,27 @@ export const Navbar = () => {
               >
                 <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
               </svg>
-            </a>
+            </NavLink>
             <ul className="p-2 bg-white z-20 shadow rounded-box">
-              <li className="hover:bg-slate-100">
-                <a>Submenu 1</a>
+              <li className="hover:bg-slate-100 w-96">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "bg-blue-500 text-white" : ""
+                  }
+                  to="/projects/1"
+                >
+                  Submenu 1
+                </NavLink>
               </li>
               <li className="hover:bg-slate-100">
-                <a>Submenu 2</a>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "bg-blue-500 text-white" : ""
+                  }
+                  to="/projects/2"
+                >
+                  Submenu 2
+                </NavLink>
               </li>
             </ul>
           </li>
@@ -99,33 +110,8 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        <div className="dropdown dropdown-start mr-10">
-          <div tabIndex={0} className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered"
-            />
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-64"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+      <div>
+        <Search />
         <UserMenu />
       </div>
     </div>

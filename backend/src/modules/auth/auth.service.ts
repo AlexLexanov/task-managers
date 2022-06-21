@@ -5,7 +5,6 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
-import { Request, Response } from 'express';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -17,11 +16,8 @@ export class AuthService {
     private readonly session: Repository<SessionEntity>,
   ) {}
 
-  public async login({ email, password }, res: Response) {
+  public async login({ email, password }) {
     const user = await this.getUser(email);
-    if (!user)
-      throw new BadRequestException('Возможно неверный логин или пароль');
-
     const validPassword = await this.verificationPassword(
       password,
       user.password,
@@ -29,8 +25,8 @@ export class AuthService {
     if (!validPassword)
       throw new BadRequestException('Возможно неверный логин или пароль');
 
-    const { access_token } = await this.setAccessToken(res, email);
-    const { refresh_token } = await this.setRefreshToken(res, email);
+    const { access_token } = await this.setAccessToken(user.email);
+    const { refresh_token } = await this.setRefreshToken(user.email);
 
     return { ...user, access_token, refresh_token };
   }
@@ -41,7 +37,12 @@ export class AuthService {
 
   public async registration(user) {
     user.password = await this.hashPassword(user.password);
-    return await this.users.create(user);
+
+    const person = await this.users.create(user);
+    const { access_token } = await this.setAccessToken(person.email);
+    const { refresh_token } = await this.setRefreshToken(person.email);
+
+    return { ...person, access_token, refresh_token };
   }
 
   async setSession({ refresh_token, email }) {
@@ -53,17 +54,11 @@ export class AuthService {
     }
   }
 
-  public async refreshToken(req: Request, { refresh_token }) {
+  public async refreshToken({ refresh_token }) {
     const session = await this.session.findOne({ refresh_token });
     if (session) {
-      const { access_token } = await this.setAccessToken(
-        req.res,
-        session.email,
-      );
-      const { refresh_token } = await this.setRefreshToken(
-        req.res,
-        session.email,
-      );
+      const { access_token } = await this.setAccessToken(session.email);
+      const { refresh_token } = await this.setRefreshToken(session.email);
       await this.setSession({ email: session.email, refresh_token });
       return { access_token, email: session.email, refresh_token };
     } else throw new BadRequestException('Ошибка, авторизуйтеcь повторно');
@@ -74,7 +69,7 @@ export class AuthService {
     return 'logout';
   }
 
-  private async setAccessToken(res: Response, email: string) {
+  private async setAccessToken(email: string) {
     const access_token = this.jwt.sign(
       { email },
       { secret: process.env.ACCESS_TOKEN_KEY },
@@ -82,7 +77,7 @@ export class AuthService {
     return { access_token };
   }
 
-  private async setRefreshToken(res: Response, email: string) {
+  private async setRefreshToken(email: string) {
     const refresh_token = this.jwt.sign(
       { email },
       { secret: process.env.REFRESH_TOKEN_KEY },
